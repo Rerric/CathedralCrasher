@@ -11,27 +11,26 @@ public class CrossbowController : MonoBehaviour
     //shooting
     public float shootForce;
 
-    public float reloadTime;
-
-    private bool isLoaded;
+    public float reloadTime = 2f;
+    private float nextFireTime = 0f;
 
     // Start is called before the first frame update
     void Start()
     {
-        isLoaded = true;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isLoaded)
-        {
-            if (Input.GetMouseButtonDown(0))
+            if (Time.time > nextFireTime)
             {
-                //isLoaded = false;
-                FireBolt();
+                if (Input.GetMouseButtonDown(0))
+                {
+                    nextFireTime = Time.time + reloadTime;
+                    FireBolt();
+                }
             }
-        }
     }
 
     private void FireBolt()
